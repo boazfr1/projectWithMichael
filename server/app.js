@@ -25,11 +25,11 @@ app.use('/user/', commentsRouter);
 app.use('/login/', loginRouter);
 
 
-  
-app.listen(PORT, (error) =>{
-    if(!error){
+
+app.listen(PORT, (error) => {
+    if (!error) {
         console.log(`listening on port ${PORT}`)
-    } else { 
+    } else {
         console.log("Error occurred, server can't start", error);
     }
 });
@@ -78,6 +78,7 @@ function createTables() {
 // createTables();
 
 async function fetchusers(item) {
+    console.log("hiiiiiiiiiiiiiiiiii");
     let res = await fetch(`https://jsonplaceholder.typicode.com/${item}`);
     let data2 = await res.json();
     let keysArr = Object.keys(data[item])
@@ -88,7 +89,7 @@ async function fetchusers(item) {
     let sql = `INSERT INTO ${item} (${keysString}) VALUES ${values};`;
     console.log('sql: ', sql);
     con.query(sql, (err, result, fields) => {
-        if (err) throw err;
+        if (err) throw (err);
         console.log(result);
     })
 }

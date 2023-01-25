@@ -11,31 +11,32 @@ let con = mysql.createConnection({
 
 router.get("/userInfo/all/:id", function (req, res) {
     let sqlCommand = `SELECT *
-    FROM users_info
+    FROM users
     WHERE id = ${req.params.id}`
     con.query(sqlCommand, function (err, result) {
         if (err) console.log(err);
+        console.log("result:", result);
         res.send(JSON.stringify({ "answer": result }))
     });
 })
 
 router.post("/userInfo/:id", function (req, res) {
     let data = req.body
-        let sqlCommand = `UPDATE users_info 
-        SET name = '${data.value1}', user_name = '${data.value2}', 
+        let sqlCommand = `UPDATE users 
+        SET name = '${data.value5}', user_name = '${data.value2}', 
         email = '${data.value3}', phone_number = '${data.value4}' 
-        WHERE (name = '${data.value1}' AND show = 1)`
+        WHERE (id = '${data.value1}' AND exist = 1)`
         con.query(sqlCommand, function (err, result) {
             if (err) console.log(err);
             res.send({ "answer": result })
         });
 })
 
-router.post("/userInfo/:id", function (req, res) {
+router.post("/userInfo/delete/:id", function (req, res) {
     let data = req.body
-        let sqlCommand = `UPDATE users_info 
-        SET show = '0' 
-        WHERE (name = '${data.value1}')`
+        let sqlCommand = `UPDATE users 
+        SET exist = '0' 
+        WHERE (id = '${data.value1}')`
         con.query(sqlCommand, function (err, result) {
             if (err) console.log(err);
             res.send({ "answer": true })
