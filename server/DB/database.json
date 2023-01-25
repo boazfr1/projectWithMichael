@@ -1,31 +1,45 @@
 {
-    "school": {
+    "usersInfo": {
         "id": "INT AUTO_INCREMENT PRIMARY KEY",
-        "name": "VARCHAR(255)",
-        "school_code": "INT"
+        "name": "VARCHAR(25)",
+        "user_name": "VARCHAR(25)",
+        "email": "VARCHAR(60)",
+        "phone_number": "INT"
     },
-    "student": {
+    "photos": {
         "id": "INT AUTO_INCREMENT PRIMARY KEY",
-        "name": "VARCHAR(255)",
-        "password": "VARCHAR(255)",
-        "classroom_id": "INT"
+        "album_id": "INT",
+        "title": "VARCHAR(100)",
+        "url": "BLOB",
+        "FOREIGN KEY": "(album_id)" 
     },
-    "teacher": {
+    "albums": {
         "id": "INT AUTO_INCREMENT PRIMARY KEY",
-        "name": "VARCHAR(255)",
-        "password": "VARCHAR(255)",
-        "email": "VARCHAR(255)"
+        "user_id": "INT FOREIGN KEY",
+        "title": "VARCHAR(25)"
     },
-    "admin": {
+    "comments": {
         "id": "INT AUTO_INCREMENT PRIMARY KEY",
-        "name": "VARCHAR(255)",
-        "password": "VARCHAR(255)",
-        "school_id": "INT"
+        "post_id": "INT FOREIGN KEY",
+        "name": "VARCHAR(25)",
+        "email": "VARCHAR(60)",
+        "body": "BLOB"
     },
-    "classroom": {
+    "posts": {
         "id": "INT AUTO_INCREMENT PRIMARY KEY",
-        "grade": "INT",
-        "class_index": "VARCHAR(255)",
-        "teacher_id": "INT"
-    }
+        "user_id": "INT FOREIGN KEY",
+        "title": "VARCHAR(255)",
+        "body": "BLOB"
+    },
+    "todos": {
+        "id": "INT AUTO_INCREMENT PRIMARY KEY",
+        "user_id": "INT FOREIGN KEY",
+        "title": "VARCHAR(255)",
+        "completed": "TINYINT(1)"
+    },
+    "password": {
+        "id": "INT AUTO_INCREMENT PRIMARY KEY",
+        "user_id": "INT FOREIGN KEY",
+        "password": "VARCHAR(25)"
+    } 
 }
