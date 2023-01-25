@@ -1,59 +1,58 @@
 {
-    "users_info": {
+    "users": {
         "id": "INT AUTO_INCREMENT PRIMARY KEY",
         "name": "VARCHAR(25)",
         "user_name": "VARCHAR(25)",
         "email": "VARCHAR(60)",
-        "phone_number": "INT",
-        "show": "TINYINT(1)"
+        "phone_number": "VARCHAR(60)",
+        "exist": "TINYINT(1)"
+
     },
-    "albums": {
+    "password": {
         "id": "INT AUTO_INCREMENT PRIMARY KEY",
         "user_id": "INT",
-        "title": "VARCHAR(25)",
-        "FOREIGN KEY": "(user_id) REFERENCES users_info(id)",
-        "show": "TINYINT(1)" 
-    },
-    "photos": {
-        "id": "INT AUTO_INCREMENT PRIMARY KEY",
-        "album_id": "INT",
-        "title": "VARCHAR(100)",
-        "url": "BLOB",
-        "FOREIGN KEY": "(album_id) REFERENCES albums(id)",
-        "show": "TINYINT(1)"
-    },
-    "posts": {
-        "id": "INT AUTO_INCREMENT PRIMARY KEY",
-        "user_id": "INT",
-        "title": "VARCHAR(255)",
-        "body": "BLOB",
-        "FOREIGN KEY": "(user_id) REFERENCES users_info(id)",
-        "show": "TINYINT(1)"
-    },
-    "comments": {
-        "id": "INT AUTO_INCREMENT PRIMARY KEY",
-        "post_id": "INT",
-        "name": "VARCHAR(25)",
-        "email": "VARCHAR(60)",
-        "body": "BLOB",
-        "FOREIGN KEY": "(post_id) REFERENCES posts(id)",
-        "show": "TINYINT(1)"
+        "password": "VARCHAR(25)",
+        "exist": "TINYINT(1)",
+        "FOREIGN KEY": "(user_id) REFERENCES users(id)"
     },
     "todos": {
         "id": "INT AUTO_INCREMENT PRIMARY KEY",
         "user_id": "INT",
         "title": "VARCHAR(255)",
         "completed": "TINYINT(1)",
-        "FOREIGN KEY": "(user_id) REFERENCES users_info(id)",
-        "show": "TINYINT(1)"
+        "exist": "TINYINT(1)",
+        "FOREIGN KEY": "(user_id) REFERENCES users(id)"
     },
-    "password": {
+    "posts": {
         "id": "INT AUTO_INCREMENT PRIMARY KEY",
         "user_id": "INT",
-        "password": "VARCHAR(25)",
-        "FOREIGN KEY": "(user_id) REFERENCES users_info(id)",
-        "show": "TINYINT(1)" 
-    } 
+        "title": "VARCHAR(255)",
+        "body": "BLOB",
+        "exist": "TINYINT(1)",
+        "FOREIGN KEY": "(user_id) REFERENCES users(id)"
+    },
+    "comments": {
+        "id": "INT AUTO_INCREMENT PRIMARY KEY",
+        "post_id": "INT",
+        "name": "VARCHAR(255)",
+        "email": "VARCHAR(60)",
+        "body": "BLOB",
+        "exist": "TINYINT(1)",
+        "FOREIGN KEY": "(post_id) REFERENCES posts(id)"
+    },
+    "albums": {
+        "id": "INT AUTO_INCREMENT PRIMARY KEY",
+        "user_id": "INT",
+        "title": "VARCHAR(255)",
+        "exist": "TINYINT(1)",
+        "FOREIGN KEY": "(user_id) REFERENCES users(id)"
+    },
+    "photos": {
+        "id": "INT AUTO_INCREMENT PRIMARY KEY",
+        "album_id": "INT",
+        "title": "VARCHAR(255)",
+        "url": "BLOB",
+        "exist": "TINYINT(1)",
+        "FOREIGN KEY": "(album_id) REFERENCES albums(id)"
+    }
 }
-
-
