@@ -24,7 +24,7 @@ router.post("/comments/changing", function (req, res) {
     let data = req.body
     let sqlCommand = `UPDATE comments 
         SET name = '${data.value2}' body = '${data.value3}'
-         WHERE id = '${data.value1}' AND show = 1`
+         WHERE id = '${data.value1}' AND exist = 1`
     con.query(sqlCommand, function (err, result) {
         if (err) console.log(err);
         res.send({ "answer": result })
@@ -34,7 +34,7 @@ router.post("/comments/changing", function (req, res) {
 router.post("/comments/delete", function (req, res) {
     let data = req.body
     let sqlCommand = `UPDATE comments 
-        SET show = '${data.value2}'
+        SET exist = '0'
          WHERE id = '${data.value1}'`
     con.query(sqlCommand, function (err, result) {
         if (err) console.log(err);

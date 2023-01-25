@@ -11,7 +11,7 @@ let con = mysql.createConnection({
 
 //get all the posts
 router.get("/posts/all/:id", function (req, res) {
-    let sqlCommand = `SELECT title, body, id
+    let sqlCommand = `SELECT title, body, id, exist
     FROM posts
     WHERE user_id = ${req.params.id}`
     con.query(sqlCommand, function (err, result) {
@@ -22,9 +22,9 @@ router.get("/posts/all/:id", function (req, res) {
 
 router.post("/posts/changing", function (req, res) {
     let data = req.body
-    let sqlCommand = `UPDATE users_info 
+    let sqlCommand = `UPDATE users 
         SET title = '${data.value2}' body = '${data.value3}'
-         WHERE id = '${data.value1}' AND show = 1`
+         WHERE id = '${data.value1}' AND exist = 1`
     con.query(sqlCommand, function (err, result) {
         if (err) console.log(err);
         res.send({ "answer": result })

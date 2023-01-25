@@ -11,16 +11,22 @@ let con = mysql.createConnection({
 
 //get all the posts
 router.get("/userName/:userName/:password", function (req, res) {
-    let sqlCommand = `SELECT users_info.user_name, password.password
-    FROM users_info
+    let sqlCommand = `SELECT users.user_name, password.password
+    FROM users
     INNER JOIN password
-    ON users_info.id = password.user_id
-    WHERE users_info.user_name = ${req.params.userName} 
+    ON users.id = password.user_id
+    WHERE users.user_name = ${req.params.userName} 
     AND password.password = ${req.params.password} `
     con.query(sqlCommand, function (err, result) {
         if (err) console.log(err);
         if (result.length > 0) {
-            res.send(JSON.stringify({ "answer": true }))
+            sqlCommand = `SELECT *
+            FROM user_name
+            WHERE user_name = ${req.params.userName}`
+            con.query(sqlCommand, function (err, res) {
+                if (err) console.log(err);
+            })
+            res.send(JSON.stringify({ "answer": res, "bool": true }))
         } else {
             res.send(JSON.stringify({ "answer": false }))
         }
@@ -29,9 +35,9 @@ router.get("/userName/:userName/:password", function (req, res) {
 
 // router.post("/posts/changing", function (req, res) {
 //     let data = req.body
-//     let sqlCommand = `UPDATE users_info 
+//     let sqlCommand = `UPDATE users 
 //         SET title = '${data.value2}' body = '${data.value3}'
-//          WHERE id = '${data.value1}' AND show = 1`
+//          WHERE id = '${data.value1}' AND exist = 1`
 //     con.query(sqlCommand, function (err, result) {
 //         if (err) console.log(err);
 //         res.send({ "answer": result })
