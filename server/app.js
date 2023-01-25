@@ -24,6 +24,9 @@ function createDB(name) {
     })
 }
 // createDB('JSON_placeholder')
+
+
+
 function createTables() {
     con.connect((err) => {
         if (err) throw err;
@@ -35,6 +38,7 @@ function createTables() {
             }
             titles = titles.slice(0, titles.length - 1)
             let sql = `CREATE TABLE ${key} (${titles});`
+            console.log('sql: ',sql);
     
             con.query(sql, (err, result, fields) => {
                 if (err) throw err;

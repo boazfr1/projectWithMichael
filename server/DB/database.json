@@ -1,5 +1,5 @@
 {
-    "usersInfo": {
+    "users_info": {
         "id": "INT AUTO_INCREMENT PRIMARY KEY",
         "name": "VARCHAR(25)",
         "user_name": "VARCHAR(25)",
@@ -11,35 +11,42 @@
         "album_id": "INT",
         "title": "VARCHAR(100)",
         "url": "BLOB",
-        "FOREIGN KEY": "(album_id)" 
+        "FOREIGN KEY": "(album_id) REFERENCES albums(id)" 
     },
     "albums": {
         "id": "INT AUTO_INCREMENT PRIMARY KEY",
-        "user_id": "INT FOREIGN KEY",
-        "title": "VARCHAR(25)"
+        "user_id": "INT",
+        "title": "VARCHAR(25)",
+        "FOREIGN KEY": "(user_id) REFERENCES users_info(id)" 
     },
     "comments": {
         "id": "INT AUTO_INCREMENT PRIMARY KEY",
-        "post_id": "INT FOREIGN KEY",
+        "post_id": "INT",
         "name": "VARCHAR(25)",
         "email": "VARCHAR(60)",
-        "body": "BLOB"
+        "body": "BLOB",
+        "FOREIGN KEY": "(post_id) REFERENCES posts(id)" 
     },
     "posts": {
         "id": "INT AUTO_INCREMENT PRIMARY KEY",
-        "user_id": "INT FOREIGN KEY",
+        "user_id": "INT",
         "title": "VARCHAR(255)",
-        "body": "BLOB"
+        "body": "BLOB",
+        "FOREIGN KEY": "(user_id) REFERENCES users_info(id)" 
     },
     "todos": {
         "id": "INT AUTO_INCREMENT PRIMARY KEY",
-        "user_id": "INT FOREIGN KEY",
+        "user_id": "INT",
         "title": "VARCHAR(255)",
-        "completed": "TINYINT(1)"
+        "completed": "TINYINT(1)",
+        "FOREIGN KEY": "(user_id) REFERENCES users_info(id)" 
     },
     "password": {
         "id": "INT AUTO_INCREMENT PRIMARY KEY",
-        "user_id": "INT FOREIGN KEY",
-        "password": "VARCHAR(25)"
+        "user_id": "INT",
+        "password": "VARCHAR(25)",
+        "FOREIGN KEY": "(user_id) REFERENCES users_info(id)" 
     } 
 }
+
+
