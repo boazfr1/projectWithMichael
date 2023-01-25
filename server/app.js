@@ -1,11 +1,42 @@
 const mysql = require('mysql');
 const fs = require("fs")
+const express = require("express")
+const bodyParser = require('body-parser')
+// const cors = require("cors")
 const data = require('./DB/database.json')
+const commentsRouter = require("./routes/comments");
+const postsRouter = require("./routes/posts")
+const todosRouter = require("./routes/todos")
+const userInfoRouter = require("./routes/userInfo")
+const loginRouter = require("./routes/login")
 
 
 
+//create the server:
+const app = express();
+const PORT = 3002;
+
+app.use(express.json());
+
+app.use('/user', userInfoRouter);
+app.use('/user/', todosRouter);
+app.use('/user/', postsRouter);
+app.use('/user/', commentsRouter);
+app.use('/login/', loginRouter);
 
 
+  
+app.listen(PORT, (error) =>{
+    if(!error){
+        console.log(`listening on port ${PORT}`)
+    } else { 
+        console.log("Error occurred, server can't start", error);
+    }
+});
+
+
+
+//create the DB:
 let con = mysql.createConnection({
     host: "localhost",
     user: "root",
@@ -47,7 +78,7 @@ function createTables() {
         }
     });
 }
-createTables();
+// createTables();
 
 
 

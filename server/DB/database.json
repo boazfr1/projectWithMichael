@@ -4,20 +4,31 @@
         "name": "VARCHAR(25)",
         "user_name": "VARCHAR(25)",
         "email": "VARCHAR(60)",
-        "phone_number": "INT"
+        "phone_number": "INT",
+        "show": "TINYINT(1)"
+    },
+    "albums": {
+        "id": "INT AUTO_INCREMENT PRIMARY KEY",
+        "user_id": "INT",
+        "title": "VARCHAR(25)",
+        "FOREIGN KEY": "(user_id) REFERENCES users_info(id)",
+        "show": "TINYINT(1)" 
     },
     "photos": {
         "id": "INT AUTO_INCREMENT PRIMARY KEY",
         "album_id": "INT",
         "title": "VARCHAR(100)",
         "url": "BLOB",
-        "FOREIGN KEY": "(album_id) REFERENCES albums(id)" 
+        "FOREIGN KEY": "(album_id) REFERENCES albums(id)",
+        "show": "TINYINT(1)"
     },
-    "albums": {
+    "posts": {
         "id": "INT AUTO_INCREMENT PRIMARY KEY",
         "user_id": "INT",
-        "title": "VARCHAR(25)",
-        "FOREIGN KEY": "(user_id) REFERENCES users_info(id)" 
+        "title": "VARCHAR(255)",
+        "body": "BLOB",
+        "FOREIGN KEY": "(user_id) REFERENCES users_info(id)",
+        "show": "TINYINT(1)"
     },
     "comments": {
         "id": "INT AUTO_INCREMENT PRIMARY KEY",
@@ -25,27 +36,23 @@
         "name": "VARCHAR(25)",
         "email": "VARCHAR(60)",
         "body": "BLOB",
-        "FOREIGN KEY": "(post_id) REFERENCES posts(id)" 
-    },
-    "posts": {
-        "id": "INT AUTO_INCREMENT PRIMARY KEY",
-        "user_id": "INT",
-        "title": "VARCHAR(255)",
-        "body": "BLOB",
-        "FOREIGN KEY": "(user_id) REFERENCES users_info(id)" 
+        "FOREIGN KEY": "(post_id) REFERENCES posts(id)",
+        "show": "TINYINT(1)"
     },
     "todos": {
         "id": "INT AUTO_INCREMENT PRIMARY KEY",
         "user_id": "INT",
         "title": "VARCHAR(255)",
         "completed": "TINYINT(1)",
-        "FOREIGN KEY": "(user_id) REFERENCES users_info(id)" 
+        "FOREIGN KEY": "(user_id) REFERENCES users_info(id)",
+        "show": "TINYINT(1)"
     },
     "password": {
         "id": "INT AUTO_INCREMENT PRIMARY KEY",
         "user_id": "INT",
         "password": "VARCHAR(25)",
-        "FOREIGN KEY": "(user_id) REFERENCES users_info(id)" 
+        "FOREIGN KEY": "(user_id) REFERENCES users_info(id)",
+        "show": "TINYINT(1)" 
     } 
 }
 
