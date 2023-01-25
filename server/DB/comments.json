@@ -1,0 +1,47 @@
+{
+    "tableName": "comments",
+    "fields":[ 
+        {
+            "name": "id",
+            "type":"INT",
+            "null": false,
+            "primary":true,
+            "auto_inc":true,
+            "foreign": false
+        },
+        {
+            "name": "post_id",
+            "type":"INT",
+            "null": false,
+            "primary":false,
+            "auto_inc":false,
+            "foreign": true
+        },
+        {
+            "name": "name",
+            "type": "varchar",
+            "null": false,
+            "charset": "charset utf-8",
+            "length":25,
+            "primary":false,
+            "foreign": false
+        },
+        {
+            "name": "email",
+            "type": "varchar",
+            "null": false,
+            "charset": "charset utf-8",
+            "length": 60,
+            "primary":false,
+            "foreign": false
+        },
+        {
+            "name": "body",
+            "type": "BLOB",
+            "null": false,
+            "charset": "charset utf-8",
+            "primary":false,
+            "foreign": false
+        }
+        ]
+}
