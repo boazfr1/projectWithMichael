@@ -13,13 +13,13 @@ let con = mysql.createConnection({
 
 // router.get(``)
 
-router.get("posts/:postId", (req, res) => {
+router.get("/post/:postId", (req, res) => {
     let sqlCommand = `SELECT title, body, id, exist
     FROM posts
-    WHERE user_id = ${req.params.id}`
+    WHERE user_id = ${req.params.postId}`
     con.query(sqlCommand, (err, result) => {
         if (err) console.log(err);
-        res.send(JSON.stringify('{ "answer": result }'))
+        res.send(JSON.stringify({ "answer": result }))
     });
 })
 

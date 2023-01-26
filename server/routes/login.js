@@ -9,25 +9,32 @@ let con = mysql.createConnection({
     database: "JSON_placeholder"
 });
 
-router.get("/userName/:userName/:password", function (req, res) {
-    let sqlCommand = `SELECT users.user_name, password.password
+router.post("/userName/:userName", function (req, res) {
+    let data = req.body
+    console.log("data:", data);
+    let sqlCommand = `SELECT users.user_name, passwords.password
     FROM users
-    INNER JOIN password
-    ON users.id = password.user_id
-    WHERE users.user_name = ${req.params.userName} 
-    AND password.password = ${req.params.password} `
+    INNER JOIN passwords
+    ON users.id = passwords.user_id
+    WHERE users.user_name = '${data.username}' 
+    AND passwords.password = ${data.password} `
+    console.log("sqlCommand:", sqlCommand);
     con.query(sqlCommand, function (err, result) {
         if (err) console.log(err);
         if (result.length > 0) {
+            console.log("result.length:", result.length);
             sqlCommand = `SELECT *
-            FROM user_name
-            WHERE user_name = ${req.params.userName}`
-            con.query(sqlCommand, function (err, res) {
+            FROM users
+            WHERE user_name = '${data.username}'`
+            console.log("sqlCommand2:", sqlCommand);
+            
+            con.query(sqlCommand, function (err, user) {
                 if (err) console.log(err);
+                console.log("user:", user);
+                res.send(JSON.stringify({ "answer": user, "bool": true }))
             })
-            res.send(JSON.stringify({ "answer": res, "bool": true }))
         } else {
-            res.send(JSON.stringify({ "answer": false }))
+            res.send(JSON.stringify({ "bool": false }))
         }
     });
 })

@@ -10,11 +10,13 @@ let con = mysql.createConnection({
 });
 
 //get all the comments
-router.get("/comments/all/:id", function (req, res) {
-    let sqlCommand = `SELECT name, email, body, id
+router.get("/all/:id", function (req, res) {
+    let str;  
+    let sqlCommand = `SELECT body
     FROM comments
     WHERE post_id = ${req.params.id}`
     con.query(sqlCommand, function (err, result) {
+        // str = result[0].body.tostring()
         if (err) console.log(err);
         res.send(JSON.stringify({ "answer": result }))
     });

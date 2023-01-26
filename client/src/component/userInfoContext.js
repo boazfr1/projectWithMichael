@@ -15,6 +15,14 @@ export const UserProvider = ({ children }) => {
         exist: 1
     });
     const changeInfo = (Id, Name, userName, Email, phoneNumber, Exist) => {
+        // let obj = {
+        //     id: Id,
+        //     name: Name,
+        //     user_name: userName,
+        //     email: Email,
+        //     phone_number: phoneNumber,
+        //     exist: Exist
+        // }
         setMyInfo({
             id: Id,
             name: Name,
