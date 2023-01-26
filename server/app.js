@@ -2,7 +2,7 @@ const mysql = require('mysql');
 const fs = require("fs")
 const express = require("express")
 const bodyParser = require('body-parser')
-// const cors = require("cors")
+const cors = require("cors")
 const data = require('./DB/database.json')
 const commentsRouter = require("./routes/comments");
 const postsRouter = require("./routes/posts")
@@ -15,7 +15,7 @@ const loginRouter = require("./routes/login")
 //create the server:
 const app = express();
 const PORT = 3002;
-
+app.use(cors())
 app.use(express.json());
 
 app.use('/user', userInfoRouter);
