@@ -15,6 +15,7 @@ function ToDos() {
         console.log(sortBy);
         sortData(toDoArray)
     }, [sortBy])
+
     window.addEventListener('beforeunload', postTodos)
     // useEffect(() => {
     //     sortData(toDoArray)
@@ -84,7 +85,7 @@ function ToDos() {
                     <label>{toDo.title}
                         <input type='checkbox' value={toDo.title} checked={toDo.completed} onChange={() => toggleCheckBox(i)} />
                     </label>
-                    <br />
+                    <hr />
                 </div>
             ))}
         </div>
