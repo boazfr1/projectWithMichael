@@ -9,7 +9,6 @@ let con = mysql.createConnection({
     database: "JSON_placeholder"
 });
 
-//get all the posts
 router.get("/userName/:userName/:password", function (req, res) {
     let sqlCommand = `SELECT users.user_name, password.password
     FROM users
