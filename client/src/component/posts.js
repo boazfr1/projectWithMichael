@@ -15,17 +15,16 @@ function Posts() {
         let answerArr = []
         let emptyArr = []
         let boolArr = []
-        fetch(`http://localhost:3002/user/posts/all/${userInfo.myInfo.id}`)
+        fetch(`http://localhost:3002/posts/post/${userInfo.myInfo.id}`)
             .then((response) => response.json())
             .then((data) => {
-                // console.log("data anser:", data.answer);
-                // console.log("data.length:", data.answer.length);
+                console.log("data:", data);
                 for (let i = 0; i < data.answer.length; i++) {
                     myList.push({
                         "title": data.answer[i].title,
                         "id": data.answer[i].id
                     })
-                    fetch(`http://localhost:3002/user/comments/all/${data.answer[i].id}`)
+                    fetch(`http://localhost:3002/comments/all/${data.answer[i].id}`)
                     .then((response) => response.json())
                     .then((data) => {
                         console.log("data:", data);

@@ -10,7 +10,7 @@ let con = mysql.createConnection({
 });
 
 //get all the comments
-router.get("/comments/all/:id", function (req, res) {
+router.get("/all/:id", function (req, res) {
     let str;  
     let sqlCommand = `SELECT body
     FROM comments

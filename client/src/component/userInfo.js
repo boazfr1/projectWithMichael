@@ -7,6 +7,7 @@ function UserInfo() {
     const navigate = useNavigate();
     const userInfo = useContext(userInfoContext);
     console.log("userInfo.myInfo:", userInfo.myInfo);
+    
     function navigateToPage(folderName){
         navigate(folderName);
     }

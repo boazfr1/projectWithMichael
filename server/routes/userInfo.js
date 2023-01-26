@@ -9,10 +9,12 @@ let con = mysql.createConnection({
     database: "JSON_placeholder"
 });
 
-router.get("/userInfo/all/:id", function (req, res) {
+
+router.get("/:id", (req, res) => {
     let sqlCommand = `SELECT *
     FROM users
     WHERE id = ${req.params.id}`
+    console.log('id', req.params.id);
     con.query(sqlCommand, function (err, result) {
         if (err) console.log(err);
         console.log("result:", result);
@@ -22,26 +24,27 @@ router.get("/userInfo/all/:id", function (req, res) {
 
 router.post("/userInfo/:id", function (req, res) {
     let data = req.body
-        let sqlCommand = `UPDATE users 
+    let sqlCommand = `UPDATE users 
         SET name = '${data.value5}', user_name = '${data.value2}', 
         email = '${data.value3}', phone_number = '${data.value4}' 
         WHERE (id = '${data.value1}' AND exist = 1)`
-        con.query(sqlCommand, function (err, result) {
-            if (err) console.log(err);
-            res.send({ "answer": result })
-        });
+    con.query(sqlCommand, function (err, result) {
+        if (err) console.log(err);
+        res.send({ "answer": result })
+    });
 })
 
 router.post("/userInfo/delete/:id", function (req, res) {
     let data = req.body
-        let sqlCommand = `UPDATE users 
+    let sqlCommand = `UPDATE users 
         SET exist = '0' 
         WHERE (id = '${data.value1}')`
-        con.query(sqlCommand, function (err, result) {
-            if (err) console.log(err);
-            res.send({ "answer": true })
-        });
+    con.query(sqlCommand, function (err, result) {
+        if (err) console.log(err);
+        res.send({ "answer": true })
+    });
 })
-
+// router.use('/todos', todosRouter)
+// app.use('/users/:id/todos', todosRouter(req.params.id));
 
 module.exports = router;
