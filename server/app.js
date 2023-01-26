@@ -2,7 +2,7 @@ const mysql = require('mysql');
 const fs = require("fs")
 const express = require("express")
 const bodyParser = require('body-parser')
-// const cors = require("cors")
+const cors = require("cors")
 const data = require('./DB/database.json')
 const commentsRouter = require("./routes/comments");
 const postsRouter = require("./routes/posts")
@@ -15,13 +15,34 @@ const loginRouter = require("./routes/login")
 //create the server:
 const app = express();
 const PORT = 3002;
-
+app.use(cors());
 app.use(express.json());
 
-app.use('/user', userInfoRouter);
-app.use('/user/', todosRouter);
-app.use('/user/', postsRouter);
-app.use('/user/', commentsRouter);
+// app.use('/users/:id',authentication)
+
+function authentication(req, res, next) {
+    console.log(req.params.id);
+    console.log(req.body.token);
+    // res.json(404)
+    // console.log('hello');
+    next();
+}
+// const myLogger = function (req, res, next) {
+//   console.log('LOGGED')
+//   next()
+// }
+
+// app.use(myLogger)
+
+// app.get('/', (req, res) => {
+//   res.send('Hello World!')
+// })
+
+
+app.use('/users', userInfoRouter);
+app.use('/todos', todosRouter);
+app.use('/posts', postsRouter);
+app.use('/comments', commentsRouter);
 app.use('/login/', loginRouter);
 
 
@@ -34,15 +55,26 @@ app.listen(PORT, (error) => {
     }
 });
 
-
-
-//create the DB:
 let con = mysql.createConnection({
     host: "localhost",
     user: "root",
     password: "z10mz10m",
     database: "JSON_placeholder"
 });
+
+// createDB('JSON_placeholder')
+
+// createTables();
+
+// fetchusers('users');
+
+// setPasswords()
+// fetchTodos('todos');
+// fetchPosts('posts');
+// fetchAlbums('albums');
+
+// fetchComments('comments');
+// fetchPhotos('photos');
 
 function createDB(name) {
     con.connect(err => {
@@ -54,7 +86,6 @@ function createDB(name) {
         });
     })
 }
-// createDB('JSON_placeholder')
 
 function createTables() {
     con.connect((err) => {
@@ -75,10 +106,8 @@ function createTables() {
         }
     });
 }
-// createTables();
 
 async function fetchusers(item) {
-    console.log("hiiiiiiiiiiiiiiiiii");
     let res = await fetch(`https://jsonplaceholder.typicode.com/${item}`);
     let data2 = await res.json();
     let keysArr = Object.keys(data[item])
@@ -93,7 +122,6 @@ async function fetchusers(item) {
         console.log(result);
     })
 }
-// fetchusers('users');
 
 async function fetchTodos(item) {
     let res = await fetch(`https://jsonplaceholder.typicode.com/${item}`);
@@ -102,7 +130,7 @@ async function fetchTodos(item) {
     keysArr.shift();
     keysArr.pop();
     let keysString = keysArr.join(',');
-    let values = data2.map(user => `( '${user.userId}', '${user.title}', '${user.completed ? 1:0}', 1)`);
+    let values = data2.map(user => `( '${user.userId}', '${user.title}', '${user.completed ? 1 : 0}', 1)`);
     values = values.join(',');
     let sql = `INSERT INTO ${item} (${keysString}) VALUES ${values};`;
     con.query(sql, (err, result, fields) => {
@@ -110,7 +138,6 @@ async function fetchTodos(item) {
         console.log(result);
     })
 }
-// fetchTodos('todos');
 
 async function fetchPosts(item) {
     let res = await fetch(`https://jsonplaceholder.typicode.com/${item}`);
@@ -127,7 +154,6 @@ async function fetchPosts(item) {
         console.log(result);
     })
 }
-// fetchPosts('posts');
 
 async function fetchComments(item) {
     let res = await fetch(`https://jsonplaceholder.typicode.com/${item}`);
@@ -144,7 +170,6 @@ async function fetchComments(item) {
         console.log(result);
     })
 }
-// fetchComments('comments');
 
 async function fetchAlbums(item) {
     let res = await fetch(`https://jsonplaceholder.typicode.com/${item}`);
@@ -161,7 +186,6 @@ async function fetchAlbums(item) {
         console.log(result);
     })
 }
-// fetchAlbums('albums');
 
 async function fetchPhotos(item) {
     let res = await fetch(`https://jsonplaceholder.typicode.com/${item}`);
@@ -178,9 +202,8 @@ async function fetchPhotos(item) {
         console.log(result);
     })
 }
-// fetchPhotos('photos');
 
-async function setPasswords(){
+async function setPasswords() {
     let res = await fetch(`https://jsonplaceholder.typicode.com/users`);
     let data2 = await res.json();
     console.log('data2: ', data2);
@@ -200,4 +223,3 @@ async function setPasswords(){
         console.log(result);
     })
 }
-// setPasswords()

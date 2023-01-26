@@ -10,13 +10,16 @@ let con = mysql.createConnection({
 });
 
 //get all the posts
-router.get("/posts/all/:id", function (req, res) {
+
+// router.get(``)
+
+router.get("posts/:postId", (req, res) => {
     let sqlCommand = `SELECT title, body, id, exist
     FROM posts
     WHERE user_id = ${req.params.id}`
-    con.query(sqlCommand, function (err, result) {
+    con.query(sqlCommand, (err, result) => {
         if (err) console.log(err);
-        res.send(JSON.stringify({ "answer": result }))
+        res.send(JSON.stringify('{ "answer": result }'))
     });
 })
 

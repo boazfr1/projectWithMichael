@@ -12,18 +12,18 @@ function Login (params) {
 
 
     function checkUser(users) {
-        for (let user of users) {
-            if (user.username === userName) {
-                let usPassword = user.address.zipcode.split("-")[1];
-                if (password === usPassword) {
-                    getId.changeId(user.id)
-                    localStorage.setItem("currentUser", user.username);
-                    navigate(`/users/${user.name}`);
-                    return;
-                }
-            }
-        }
-        alert("your username or password is incorrect");
+    //     for (let user of users) {
+    //         if (user.username === userName) {
+    //             let usPassword = user.address.zipcode.split("-")[1];
+    //             if (password === usPassword) {
+    //                 getId.changeId(user.id)
+    //                 localStorage.setItem("currentUser", user.username);
+    //                 navigate(`/users/${user.name}`);
+    //                 return;
+    //             }
+    //         }
+    //     }
+    //     alert("your username or password is incorrect");
     }
 
     function handleSubmit(event) {
