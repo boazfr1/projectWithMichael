@@ -8,7 +8,7 @@
         "exist": "TINYINT(1)"
 
     },
-    "password": {
+    "passwords": {
         "id": "INT AUTO_INCREMENT PRIMARY KEY",
         "user_id": "INT",
         "password": "VARCHAR(25)",

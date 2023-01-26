@@ -102,7 +102,7 @@ async function fetchTodos(item) {
     keysArr.shift();
     keysArr.pop();
     let keysString = keysArr.join(',');
-    let values = data2.map(user => `( '${user.userId}', '${user.title}', '${user.completed ? 1 : 0}', 1)`);
+    let values = data2.map(user => `( '${user.userId}', '${user.title}', '${user.completed ? 1:0}', 1)`);
     values = values.join(',');
     let sql = `INSERT INTO ${item} (${keysString}) VALUES ${values};`;
     con.query(sql, (err, result, fields) => {
@@ -137,14 +137,6 @@ async function fetchComments(item) {
     keysArr.pop();
     let keysString = keysArr.join(',');
     let values = data2.map(user => `( '${user.postId}', '${user.name}', '${user.email}', '${user.body}', 1)`);
-    console.log(values.length);
-    // for (let i = 0; i < values.length / 100; i++) {
-    //     let sql = `INSERT INTO ${item} (${keysString}) VALUES ${values.slice(i * 100, (i + 1) * 100)};`;
-    //     con.query(sql, (err, result, fields) => {
-    //         if (err) throw err;
-    //         console.log(result);
-    //     })
-    // }
     values = values.join(',');
     let sql = `INSERT INTO ${item} (${keysString}) VALUES ${values};`;
     con.query(sql, (err, result, fields) => {
@@ -153,3 +145,59 @@ async function fetchComments(item) {
     })
 }
 // fetchComments('comments');
+
+async function fetchAlbums(item) {
+    let res = await fetch(`https://jsonplaceholder.typicode.com/${item}`);
+    let data2 = await res.json();
+    let keysArr = Object.keys(data[item])
+    keysArr.shift();
+    keysArr.pop();
+    let keysString = keysArr.join(',');
+    let values = data2.map(user => `( '${user.userId}', '${user.title}', 1)`);
+    values = values.join(',');
+    let sql = `INSERT INTO ${item} (${keysString}) VALUES ${values};`;
+    con.query(sql, (err, result, fields) => {
+        if (err) throw err;
+        console.log(result);
+    })
+}
+// fetchAlbums('albums');
+
+async function fetchPhotos(item) {
+    let res = await fetch(`https://jsonplaceholder.typicode.com/${item}`);
+    let data2 = await res.json();
+    let keysArr = Object.keys(data[item])
+    keysArr.shift();
+    keysArr.pop();
+    let keysString = keysArr.join(',');
+    let values = data2.map(user => `( '${user.albumId}', '${user.title}', '${user.thumbnailUrl}', 1)`);
+    values = values.join(',');
+    let sql = `INSERT INTO ${item} (${keysString}) VALUES ${values};`;
+    con.query(sql, (err, result, fields) => {
+        if (err) throw err;
+        console.log(result);
+    })
+}
+// fetchPhotos('photos');
+
+async function setPasswords(){
+    let res = await fetch(`https://jsonplaceholder.typicode.com/users`);
+    let data2 = await res.json();
+    console.log('data2: ', data2);
+    // let keysArr = Object.keys(data[item])
+    // keysArr.shift();
+    // keysArr.pop();
+    // let keysString = keysArr.join(',');
+    let values = data2.map(user => `('${user.id}', '1234', 1)`);
+    // console.log('values: ', values);
+    values = values.join(',');
+    // console.log('values: ', values);
+    let sql = `INSERT INTO passwords (user_id, password, exist) VALUES ${values};`;
+    console.log('sql: ', sql);
+
+    con.query(sql, (err, result, fields) => {
+        if (err) throw err;
+        console.log(result);
+    })
+}
+// setPasswords()
